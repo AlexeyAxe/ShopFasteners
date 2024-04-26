@@ -8,12 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
 public class BrandRepositoryImpl implements BrandRepository {
 
     private final Connection connection;
 
 
-    private static final String FIND_BY_ID = "SELECT * FROM Brand WHERE idbrand = ?";
+    private static final String FIND_BY_ID = "SELECT * FROM Brand WHERE id_brand = ?";
     private static final String FIND_ALL = "SELECT * FROM Brand";
     private static final String DELETE_BY_ID = "DELETE * FROM Brand WHERE idbrand = ?";
     private static final String SAVE = "INSERT INTO Brand(idbrand,brandName) VALUES = (?,?)";

@@ -1,6 +1,7 @@
 package org.example.shop.model;
 
-import java.util.Date;
+
+import java.sql.Date;
 import java.util.Objects;
 
 public class Order {
@@ -16,6 +17,10 @@ public class Order {
         this.status = status;
         this.idUser = idUser;
         this.user = user;
+    }
+
+    public Order() {
+
     }
 
     public User getUser() {
@@ -34,7 +39,7 @@ public class Order {
         this.idOrder = idOrder;
     }
 
-    public Date getDateOrder() {
+    public java.sql.Date getDateOrder() {
         return dateOrder;
     }
 

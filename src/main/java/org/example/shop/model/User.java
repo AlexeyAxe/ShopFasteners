@@ -7,16 +7,20 @@ import java.util.Objects;
 public class User {
     private long idUser;
     private String firstName;
-    private String lastNamed;
+    private String lastName;
     private String email;
     private List<Order> orderList;
 
-    public User(long idUser, String firstName, String lastNamed, String email, List<Order> orderList) {
+    public User(long idUser, String firstName, String lastName, String email, List<Order> orderList) {
         this.idUser = idUser;
         this.firstName = firstName;
-        this.lastNamed = lastNamed;
+        this.lastName = lastName;
         this.email = email;
         this.orderList = orderList;
+    }
+
+    public User() {
+
     }
 
     public List<Order> getOrderList() {
@@ -43,12 +47,12 @@ public class User {
         this.firstName = firstName;
     }
 
-    public String getLastNamed() {
-        return lastNamed;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastNamed(String lastNamed) {
-        this.lastNamed = lastNamed;
+    public void setLastName(String lastNamed) {
+        this.lastName = lastNamed;
     }
 
     public String getEmail() {
@@ -64,12 +68,12 @@ public class User {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return idUser == user.idUser && Objects.equals(firstName, user.firstName) && Objects.equals(lastNamed, user.lastNamed) && Objects.equals(email, user.email);
+        return idUser == user.idUser && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idUser, firstName, lastNamed, email);
+        return Objects.hash(idUser, firstName, lastName, email);
     }
 
     @Override
@@ -77,7 +81,7 @@ public class User {
         return "User{" +
                 "idUser=" + idUser +
                 ", firstName='" + firstName + '\'' +
-                ", lastNamed='" + lastNamed + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", orderList=" + orderList +
                 '}';

@@ -17,6 +17,10 @@ public class Fastener {
         this.brandList = brandList;
     }
 
+    public Fastener() {
+
+    }
+
     public List<Brand> getBrandList() {
         return brandList;
     }
