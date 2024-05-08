@@ -16,6 +16,10 @@ public class Brand {
         this.brandName = brandName;
         this.fastenerList = fastenerList;
     }
+    public Brand(long idBrand, String brandName) {
+        this.idBrand = idBrand;
+        this.brandName = brandName;
+    }
 
     public List<Fastener> getFastenerList() {
         return fastenerList;

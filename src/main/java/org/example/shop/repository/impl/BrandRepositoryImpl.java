@@ -2,6 +2,7 @@ package org.example.shop.repository.impl;
 
 import org.example.shop.model.Brand;
 import org.example.shop.repository.BrandRepository;
+import org.example.shop.repository.mapper.impl.BrandMapperImpl;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.Optional;
 public class BrandRepositoryImpl implements BrandRepository {
 
     private final Connection connection;
-
+    private BrandMapperImpl brandMapper;
 
     private static final String FIND_BY_ID = "SELECT * FROM Brand WHERE id_brand = ?";
     private static final String FIND_ALL = "SELECT * FROM Brand";
@@ -28,10 +29,7 @@ public class BrandRepositoryImpl implements BrandRepository {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {
-                    Brand brand = new Brand();
-                    brand.setBrandName(resultSet.getString("brand_name"));
-                    brand.setIdBrand(resultSet.getLong("id_brand"));
-                    return Optional.of(brand);
+                    return Optional.of(brandMapper.mapToBrand(resultSet));
                 }
                      return Optional.empty();
         } catch (SQLException e) {

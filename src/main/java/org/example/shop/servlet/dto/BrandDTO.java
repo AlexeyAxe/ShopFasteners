@@ -4,6 +4,11 @@ public class BrandDTO {
     private long idBrand;
     private String brandName;
 
+    public BrandDTO(long idBrand, String brandName) {
+        this.idBrand = idBrand;
+        this.brandName = brandName;
+    }
+
     public long getIdBrand(){
         return idBrand;
     }
