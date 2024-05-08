@@ -9,5 +9,6 @@ public class FastenerMapperImpl implements FastenerMapper {
     @Override
     public Fastener map(ResultSet resultSet) {
 
+        return null;
     }
 }
