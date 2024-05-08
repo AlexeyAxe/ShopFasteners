@@ -27,8 +27,8 @@ public class FastenerRepositoryImpl implements FastenerRepository {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 Fastener fastener = new Fastener();
-                fastener.setName(resultSet.getString("name"));
-                fastener.setIdFastener(resultSet.getLong("id_fasteners"));
+                fastener.setName(resultSet.getString("name_fastener"));
+                fastener.setIdFastener(resultSet.getLong("id_fastener"));
                 fastener.setPrice(resultSet.getBigDecimal("price"));
                 return Optional.of(fastener);
             }
@@ -56,8 +56,8 @@ public class FastenerRepositoryImpl implements FastenerRepository {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Fastener fastener = new Fastener();
-                fastener.setName(resultSet.getString("name"));
-                fastener.setIdFastener(resultSet.getLong("id_fasteners"));
+                fastener.setName(resultSet.getString("name_fastener"));
+                fastener.setIdFastener(resultSet.getLong("id_fastener"));
                 fastener.setPrice(resultSet.getBigDecimal("price"));
                 fastenersList.add(fastener);
             }

@@ -60,7 +60,7 @@ public class Brand {
 
     @Override
     public String toString() {
-        return "Brand{" +
+        return "brand{" +
                 "idBrand=" + idBrand +
                 ", brandName='" + brandName + '\'' +
                 ", fastenerList=" + fastenerList +

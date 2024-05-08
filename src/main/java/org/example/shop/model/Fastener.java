@@ -68,9 +68,9 @@ public class Fastener {
 
     @Override
     public String toString() {
-        return "Fastener{" +
+        return "fastener{" +
                 "idFastener=" + idFastener +
-                ", name='" + name + '\'' +
+                ", name_fastener='" + name + '\'' +
                 ", price=" + price +
                 ", brandList=" + brandList +
                 '}';

@@ -55,7 +55,7 @@ public class BrandRepositoryImpl implements BrandRepository {
                ResultSet resultSet = preparedStatement.executeQuery();
                     while (resultSet.next()) {
                         Brand brand = new Brand();
-                        brand.setBrandName(resultSet.getString("brand_name"));
+                        brand.setBrandName(resultSet.getString("name_brand_"));
                         brand.setIdBrand(resultSet.getLong("id_brand"));
                         brands.add(brand);
                     }
