@@ -5,20 +5,16 @@ import java.util.Objects;
 
 public class Brand {
     private long idBrand;
-    private String brandName;
-    private List<Fastener>fastenerList;
+    private String nameBrand;
+    private List<Fastener> fastenerList;
 
     public Brand() {
     }
 
-    public Brand(long idBrand, String brandName, List<Fastener> fastenerList) {
+    public Brand(long idBrand, String nameBrand, List<Fastener> fastenerList) {
         this.idBrand = idBrand;
-        this.brandName = brandName;
+        this.nameBrand = nameBrand;
         this.fastenerList = fastenerList;
-    }
-    public Brand(long idBrand, String brandName) {
-        this.idBrand = idBrand;
-        this.brandName = brandName;
     }
 
     public List<Fastener> getFastenerList() {
@@ -37,12 +33,12 @@ public class Brand {
         this.idBrand = idBrand;
     }
 
-    public String getBrandName() {
-        return brandName;
+    public String getNameBrand() {
+        return nameBrand;
     }
 
-    public void setBrandName(String brandName) {
-        this.brandName = brandName;
+    public void setNameBrand(String nameBrand) {
+        this.nameBrand = nameBrand;
     }
 
     @Override
@@ -50,19 +46,20 @@ public class Brand {
         if (this == o) return true;
         if (!(o instanceof Brand)) return false;
         Brand brand = (Brand) o;
-        return idBrand == brand.idBrand && Objects.equals(brandName, brand.brandName) && Objects.equals(fastenerList, brand.fastenerList);
+        return idBrand == brand.idBrand && Objects.equals(nameBrand, brand.nameBrand) &&
+                Objects.equals(fastenerList, brand.fastenerList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idBrand, brandName, fastenerList);
+        return Objects.hash(idBrand, nameBrand, fastenerList);
     }
 
     @Override
     public String toString() {
         return "brand{" +
                 "idBrand=" + idBrand +
-                ", brandName='" + brandName + '\'' +
+                ", nameBrand='" + nameBrand + '\'' +
                 ", fastenerList=" + fastenerList +
                 '}';
     }

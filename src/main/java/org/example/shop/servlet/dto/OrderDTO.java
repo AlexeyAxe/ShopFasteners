@@ -1,12 +1,23 @@
 package org.example.shop.servlet.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class OrderDTO {
     private long idOrder;
-    private Date dateOrder;
+    private LocalDate dateOrder;
     private String status;
     private long idUser;
+    private long idFastener;
+    private int quantity;
+
+    public OrderDTO(long idOrder, LocalDate dateOrder, String status, long idUser, long idFastener, int quantity) {
+        this.idOrder = idOrder;
+        this.dateOrder = dateOrder;
+        this.status = status;
+        this.idUser = idUser;
+        this.idFastener = idFastener;
+        this.quantity = quantity;
+    }
 
     public long getIdOrder() {
         return idOrder;
@@ -16,11 +27,11 @@ public class OrderDTO {
         this.idOrder = idOrder;
     }
 
-    public Date getDateOrder() {
+    public LocalDate getDateOrder() {
         return dateOrder;
     }
 
-    public void setDateOrder(Date dateOrder) {
+    public void setDateOrder(LocalDate dateOrder) {
         this.dateOrder = dateOrder;
     }
 
@@ -39,4 +50,21 @@ public class OrderDTO {
     public void setIdUser(long idUser) {
         this.idUser = idUser;
     }
+
+    public long getIdFastener() {
+        return idFastener;
+    }
+
+    public void setIdFastener(long idFastener) {
+        this.idFastener = idFastener;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }
+

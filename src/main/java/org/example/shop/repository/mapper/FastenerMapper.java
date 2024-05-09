@@ -5,5 +5,5 @@ import org.example.shop.model.Fastener;
 import java.sql.ResultSet;
 
 public interface FastenerMapper {
-    Fastener map(ResultSet resultSet);
+    Fastener mapToFastener(ResultSet resultSet);
 }

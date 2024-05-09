@@ -10,10 +10,10 @@ import java.util.Optional;
 
 public class UserRepositoryImpl implements UserRepository {
     private final Connection connection;
-    private static final String FIND_BY_ID = "SELECT * FROM User WHERE id_user = ?";
-    private static final String FIND_ALL = "SELECT * FROM User";
+    private static final String FIND_BY_ID = "SELECT * FROM user WHERE id_user = ?";
+    private static final String FIND_ALL = "SELECT * FROM user";
     private static final String DELETE_BY_ID = "DELETE * FROM User WHERE id_user = ?";
-    private static final String SAVE = "INSERT INTO User(id_user,first_name,last_name,email) VALUES = (?,?,?,?)";
+    private static final String SAVE = "INSERT INTO user(id_user,first_name,last_name,email) VALUES = (?,?,?,?)";
 
     public UserRepositoryImpl(Connection connection) {
         this.connection = connection;

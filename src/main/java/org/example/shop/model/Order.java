@@ -1,34 +1,28 @@
 package org.example.shop.model;
 
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Order {
     private long idOrder;
-    private Date dateOrder;
+    private LocalDate dateOrder;
     private String status;
     private long idUser;
-    private User user;
+    private long idFastener;
+    private int quantity;
 
-    public Order(long idOrder, Date dateOrder, String status, long idUser, User user) {
+    public Order(long idOrder, LocalDate dateOrder, String status, long idUser, long idFastener, int quantity) {
         this.idOrder = idOrder;
         this.dateOrder = dateOrder;
         this.status = status;
         this.idUser = idUser;
-        this.user = user;
+        this.idFastener=idFastener;
+        this.quantity =quantity;
     }
 
     public Order() {
 
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public long getIdOrder() {
@@ -39,11 +33,11 @@ public class Order {
         this.idOrder = idOrder;
     }
 
-    public java.sql.Date getDateOrder() {
+    public LocalDate getDateOrder() {
         return dateOrder;
     }
 
-    public void setDateOrder(Date dateOrder) {
+    public void setDateOrder(LocalDate dateOrder) {
         this.dateOrder = dateOrder;
     }
 
@@ -63,27 +57,47 @@ public class Order {
         this.idUser = idUser;
     }
 
+    public long getIdFastener() {
+        return idFastener;
+    }
+
+    public void setIdFastener(long idFastener) {
+        this.idFastener = idFastener;
+    }
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Order)) return false;
         Order order = (Order) o;
-        return idOrder == order.idOrder && idUser == order.idUser && Objects.equals(dateOrder, order.dateOrder) && Objects.equals(status, order.status) && Objects.equals(user, order.user);
+        return idOrder == order.idOrder && idUser == order.idUser &&
+                Objects.equals(dateOrder, order.dateOrder) &&
+                Objects.equals(status, order.status) &&
+                Objects.equals(idFastener, order.idFastener) &&
+                Objects.equals(quantity, order.quantity);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idOrder, dateOrder, status, idUser, user);
+        return Objects.hash(idOrder, dateOrder, status, idUser, idFastener, quantity);
     }
+
 
     @Override
     public String toString() {
-        return "order{" +
+        return "Order{" +
                 "idOrder=" + idOrder +
                 ", dateOrder=" + dateOrder +
                 ", status='" + status + '\'' +
                 ", idUser=" + idUser +
-                ", user=" + user +
+                ", idFastener=" + idFastener +
+                ", quantity=" + quantity +
                 '}';
     }
 }

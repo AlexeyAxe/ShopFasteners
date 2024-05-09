@@ -12,7 +12,7 @@ public class BrandMapperImpl implements BrandMapper {
     public Brand mapToBrand(ResultSet resultSet) {
         try{
             Brand brand = new Brand();
-            brand.setBrandName(resultSet.getString("name_brand"));
+            brand.setNameBrand(resultSet.getString("name_brand"));
             brand.setIdBrand(resultSet.getLong("id_brand"));
             return brand;
         }

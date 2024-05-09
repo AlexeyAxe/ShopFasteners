@@ -5,12 +5,12 @@ import java.util.Objects;
 
 public class Fastener {
     private long idFastener;
-    private String name;
+    private String nameFastener;
     private List <Brand> brandList;
 
-    public Fastener(long idFastener, String name, List<Brand> brandList) {
+    public Fastener(long idFastener, String nameFastener, List<Brand> brandList) {
         this.idFastener = idFastener;
-        this.name = name;
+        this.nameFastener = nameFastener;
         this.brandList = brandList;
     }
 
@@ -34,12 +34,12 @@ public class Fastener {
         this.idFastener = idFastener;
     }
 
-    public String getName() {
-        return name;
+    public String getNameFastener() {
+        return nameFastener;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNameFastener(String nameFastener) {
+        this.nameFastener = nameFastener;
     }
 
     @Override
@@ -47,20 +47,20 @@ public class Fastener {
         if (this == o) return true;
         if (!(o instanceof Fastener)) return false;
         Fastener fastener = (Fastener) o;
-        return idFastener == fastener.idFastener && Objects.equals(name, fastener.name)
+        return idFastener == fastener.idFastener && Objects.equals(nameFastener, fastener.nameFastener)
                 &&  Objects.equals(brandList, fastener.brandList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idFastener, name, brandList);
+        return Objects.hash(idFastener, nameFastener, brandList);
     }
 
     @Override
     public String toString() {
         return "fastener{" +
                 "idFastener=" + idFastener +
-                ", name_fastener='" + name + '\'' +
+                ", name_fastener='" + nameFastener + '\'' +
                 ", brandList=" + brandList +
                 '}';
     }

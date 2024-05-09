@@ -1,10 +1,37 @@
 package org.example.shop.servlet.dto;
 
+import org.example.shop.model.Order;
+
+import java.util.List;
+
 public class UserDTO {
     private long idUser;
     private String firstName;
-    private String lastNamed;
+    private String lastName;
     private String email;
+    private List<Order> orderList;
+
+    public UserDTO(long idUser, String firstName, String lastName, String email, List<Order> orderList) {
+        this.idUser = idUser;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.orderList = orderList;
+    }
+
+    public UserDTO(long idUser, String firstName, String lastName, String email) {
+        this.idUser = idUser;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
+
+    public List<Order> getOrderList() {return orderList;
+    }
+
+    public void setOrderList(List<Order> orderList) {
+        this.orderList = orderList;
+    }
 
     public long getIdUser() {
         return idUser;
@@ -22,12 +49,12 @@ public class UserDTO {
         this.firstName = firstName;
     }
 
-    public String getLastNamed() {
-        return lastNamed;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastNamed(String lastNamed) {
-        this.lastNamed = lastNamed;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {

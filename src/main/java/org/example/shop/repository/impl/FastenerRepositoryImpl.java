@@ -11,10 +11,10 @@ import java.util.Optional;
 public class FastenerRepositoryImpl implements FastenerRepository {
 
     private final Connection connection;
-    private static final String FIND_BY_ID = "SELECT * FROM Fastener WHERE idfasteners = ?";
-    private static final String FIND_ALL = "SELECT * FROM Fastener";
-    private static final String DELETE_BY_ID = "DELETE * FROM Fastener WHERE idfasteners = ?";
-    private static final String SAVE = "INSERT INTO Fastener(idfasteners,name,price) VALUES = (?,?,?)";
+    private static final String FIND_BY_ID = "SELECT * FROM fastener WHERE id_fastener = ?";
+    private static final String FIND_ALL = "SELECT * FROM fastener";
+    private static final String DELETE_BY_ID = "DELETE * FROM fastener WHERE id_fastener = ?";
+    private static final String SAVE = "INSERT INTO fastener(id_fastener,name_fastener) VALUES = (?,?)";
 
     public FastenerRepositoryImpl(Connection connection) {
         this.connection=connection;
@@ -27,9 +27,8 @@ public class FastenerRepositoryImpl implements FastenerRepository {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 Fastener fastener = new Fastener();
-                fastener.setName(resultSet.getString("name_fastener"));
+                fastener.setNameFastener(resultSet.getString("name_fastener"));
                 fastener.setIdFastener(resultSet.getLong("id_fastener"));
-                fastener.setPrice(resultSet.getBigDecimal("price"));
                 return Optional.of(fastener);
             }
             return Optional.empty();
@@ -56,9 +55,8 @@ public class FastenerRepositoryImpl implements FastenerRepository {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Fastener fastener = new Fastener();
-                fastener.setName(resultSet.getString("name_fastener"));
+                fastener.setNameFastener(resultSet.getString("name_fastener"));
                 fastener.setIdFastener(resultSet.getLong("id_fastener"));
-                fastener.setPrice(resultSet.getBigDecimal("price"));
                 fastenersList.add(fastener);
             }
             return fastenersList;
@@ -71,8 +69,7 @@ public class FastenerRepositoryImpl implements FastenerRepository {
     public boolean save(Fastener fastener) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(SAVE)) {
             preparedStatement.setLong(1, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(2, fastener.getName());
-            preparedStatement.setBigDecimal(3,fastener.getPrice());
+            preparedStatement.setString(2, fastener.getNameFastener());
             return preparedStatement.executeUpdate()>0;
         }
         catch (SQLException e) {

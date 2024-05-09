@@ -9,7 +9,6 @@ import org.example.shop.service.BrandService;
 import org.example.shop.service.impl.BrandServiceImpl;
 import org.example.shop.servlet.dto.BrandDTO;
 import org.example.shop.servlet.mapper.BrandMapperDTO;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -27,7 +26,7 @@ public class BrandServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         resp.setCharacterEncoding("UTF-8");
-        Long id = Long.valueOf(req.getParameter("id"));
+        long id = Long.parseLong(req.getParameter("id"));
         Brand brand = service.findById(id);
         BrandDTO brandDTO = dtomapper.toBrandDTO(brand);
         PrintWriter out = resp.getWriter();
@@ -35,7 +34,7 @@ public class BrandServlet extends HttpServlet {
         if (brand != null) {
             out.println("<h1>Brand Details</h1>");
             out.println("<p>ID: " + brandDTO.getIdBrand() + "</p>");
-            out.println("<p>Name: " + brandDTO.getBrandName() + "</p>");
+            out.println("<p>Name: " + brandDTO.getNameBrand() + "</p>");
         } else {
             out.println("<h1>Brand not found!</h1>");
         }
@@ -48,9 +47,9 @@ public class BrandServlet extends HttpServlet {
 
         resp.setContentType("text/html");
         resp.setCharacterEncoding("UTF-8");
-        Long idBrand = Long.valueOf(req.getParameter("idBrand"));
-        String brandName = req.getParameter("brandName");
-        BrandDTO brandDTO = new BrandDTO(idBrand, brandName);
+        long idBrand = Long.parseLong(req.getParameter("idBrand"));
+        String nameBrand = req.getParameter("nameBrand");
+        BrandDTO brandDTO = new BrandDTO(idBrand, nameBrand);
         Brand brand = dtomapper.toBrand(brandDTO);
         boolean save = service.save(brand);
 
