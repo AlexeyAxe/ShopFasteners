@@ -5,5 +5,5 @@ import org.example.shop.model.User;
 import java.sql.ResultSet;
 
 public interface UserMapper {
-    User map(ResultSet resultSet);
+    User mapToUser(ResultSet resultSet);
 }

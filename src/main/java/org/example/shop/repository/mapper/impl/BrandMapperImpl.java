@@ -2,7 +2,6 @@ package org.example.shop.repository.mapper.impl;
 
 import org.example.shop.model.Brand;
 import org.example.shop.repository.mapper.BrandMapper;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 

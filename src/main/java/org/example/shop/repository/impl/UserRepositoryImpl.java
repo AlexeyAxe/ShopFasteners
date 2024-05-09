@@ -2,6 +2,7 @@ package org.example.shop.repository.impl;
 
 import org.example.shop.model.User;
 import org.example.shop.repository.UserRepository;
+import org.example.shop.repository.mapper.impl.UserMapperImpl;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.Optional;
 
 public class UserRepositoryImpl implements UserRepository {
     private final Connection connection;
+    private UserMapperImpl userMapper;
     private static final String FIND_BY_ID = "SELECT * FROM user WHERE id_user = ?";
     private static final String FIND_ALL = "SELECT * FROM user";
     private static final String DELETE_BY_ID = "DELETE * FROM User WHERE id_user = ?";
@@ -24,12 +26,7 @@ public class UserRepositoryImpl implements UserRepository {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                User user = new User();
-                user.setIdUser(resultSet.getLong("id_user"));
-                user.setFirstName(resultSet.getString("first_name"));
-                user.setLastName(resultSet.getString("last_name"));
-                user.setEmail(resultSet.getString("email"));
-                return Optional.of(user);
+            return Optional.of(userMapper.mapToUser(resultSet));
             }
             return Optional.empty();
         } catch (SQLException e) {
@@ -53,12 +50,7 @@ public class UserRepositoryImpl implements UserRepository {
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                User user = new User();
-                user.setIdUser(resultSet.getLong("id_user"));
-                user.setFirstName(resultSet.getString("first_name"));
-                user.setLastName(resultSet.getString("last_name"));
-                user.setEmail(resultSet.getString("email"));
-                users.add(user);
+                 users.add(userMapper.mapToUser(resultSet));
             }
             return users;
         } catch (SQLException e) {
