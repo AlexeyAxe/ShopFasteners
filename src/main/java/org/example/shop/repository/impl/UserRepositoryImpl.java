@@ -20,6 +20,7 @@ public class UserRepositoryImpl implements UserRepository {
     public UserRepositoryImpl(Connection connection) {
         this.connection = connection;
     }
+
     @Override
     public Optional<User> findById(Long id) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
