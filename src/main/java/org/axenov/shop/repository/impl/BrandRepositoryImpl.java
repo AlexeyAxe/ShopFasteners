@@ -25,14 +25,14 @@ public class BrandRepositoryImpl implements BrandRepository {
     }
 
     @Override
-    public Optional<Brand> findById(Long id) {
+    public Brand findById(Long id) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                return Optional.of(brandMapper.mapToBrand(resultSet));
+                return brandMapper.mapToBrand(resultSet);
             }
-            return Optional.empty();
+            return null;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

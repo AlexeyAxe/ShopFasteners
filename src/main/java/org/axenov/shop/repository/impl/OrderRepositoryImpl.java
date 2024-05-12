@@ -22,14 +22,14 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public Optional<Order> findById(Long id) {
+    public Order findById(Long id) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-            return Optional.of(orderMapper.mapToOrder(resultSet));
+            return orderMapper.mapToOrder(resultSet);
             }
-            return Optional.empty();
+            return null;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

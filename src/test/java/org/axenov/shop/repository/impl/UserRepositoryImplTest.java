@@ -1,5 +1,6 @@
 package org.axenov.shop.repository.impl;
 
+import org.axenov.shop.db.ConnectionManagerImplRepTest;
 import org.axenov.shop.db.ConnectionManagerImplTest;
 import org.axenov.shop.model.User;
 import org.junit.jupiter.api.AfterAll;
@@ -33,8 +34,12 @@ class UserRepositoryImplTest {
 
     @BeforeEach
     void setUp() throws SQLException {
-        ConnectionManagerImplTest connectionManager = new ConnectionManagerImplTest();
-        userRepository = new UserRepositoryImpl(dataSource.getConnection());
+        ConnectionManagerImplTest connectionManager = new ConnectionManagerImplTest(
+                postgres.getJdbcUrl(),
+                postgres.getUsername(),
+                postgres.getPassword()
+        );
+        userRepository = new UserRepositoryImpl(connectionManager.getConnection());
     }
 
     @Test

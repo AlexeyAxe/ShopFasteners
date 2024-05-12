@@ -41,7 +41,7 @@ class BrandRepositoryImplTest {
 
     @Test
      void testFindById() throws SQLException {
-        Optional<Brand> brand = brandRepository.findById(1L);
+        Brand brand = brandRepository.findById(1L);
 
         verify(preparedStatement).setLong(1, 1L);
 
@@ -56,7 +56,7 @@ class BrandRepositoryImplTest {
      void testFindByIdNotFound() throws SQLException {
         when(resultSet.next()).thenReturn(false);
 
-        Optional<Brand> brand = brandRepository.findById(1L);
+        Brand brand = brandRepository.findById(1L);
 
         assertEquals(Optional.empty(), brand);
     }

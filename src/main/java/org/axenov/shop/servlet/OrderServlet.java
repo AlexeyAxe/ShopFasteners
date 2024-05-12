@@ -12,6 +12,7 @@ import org.axenov.shop.servlet.dto.OrderDTO;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 
@@ -21,7 +22,9 @@ public class OrderServlet extends HttpServlet {
 
     @Override
     public void init(){
+
         this.service=new OrderServiceImpl();
+
         this.dtomapper= OrderMapperDTO.INSTANCE;
     }
     @Override

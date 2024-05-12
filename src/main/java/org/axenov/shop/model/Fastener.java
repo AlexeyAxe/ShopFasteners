@@ -14,6 +14,7 @@ public class Fastener {
         this.brandList = brandList;
     }
 
+
     public Fastener() {
 
     }
@@ -47,8 +48,7 @@ public class Fastener {
         if (this == o) return true;
         if (!(o instanceof Fastener)) return false;
         Fastener fastener = (Fastener) o;
-        return idFastener == fastener.idFastener && Objects.equals(nameFastener, fastener.nameFastener)
-                &&  Objects.equals(brandList, fastener.brandList);
+        return idFastener == fastener.idFastener && Objects.equals(nameFastener, fastener.nameFastener);
     }
 
     @Override

@@ -1,30 +1,34 @@
 package org.axenov.shop.db;
 
-import com.zaxxer.hikari.HikariConfig;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.MockedConstruction;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mockConstruction;
-import static org.mockito.Mockito.times;
+import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@ExtendWith(MockitoExtension.class)
 public class DBConfigurationTest {
 
-        @Mock
-    HikariConfig hikariConfig;
-
-        @Test
-        public void getHikariConfigTest() {
-
-            try (MockedConstruction<HikariConfig> ignored =
-                mockConstruction(HikariConfig.class, (mock, context) -> hikariConfig = mock)) {
-                DBConfiguration.getHikariConfig();
-                Mockito.verify(hikariConfig, times(1)).setDataSourceClassName(anyString());
-            }
-        }
+    @BeforeAll
+    public static void loadProperties() {
+        //Этот шаг необходим, чтобы инициализировать статический блок класса
+        DBConfiguration.get("testKey");
     }
+
+    @Test
+    public void shouldReturnCorrectValueGivenExistingKey() {
+        // Act
+        String actualValue = DBConfiguration.get("testKey");
+
+        // Assert
+        assertEquals("testValue", actualValue);
+    }
+
+    @Test
+    public void shouldReturnNullGivenNonExistingKey() {
+        // Act
+        String actualValue = DBConfiguration.get("nonExistingKey");
+
+        // Assert
+        assertNull(actualValue);
+    }
+}

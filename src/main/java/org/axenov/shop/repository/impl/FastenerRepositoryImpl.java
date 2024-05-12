@@ -23,14 +23,13 @@ public class FastenerRepositoryImpl implements FastenerRepository {
     }
 
     @Override
-    public Optional<Fastener> findById(Long id) {
+    public Fastener findById(Long id) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                return Optional.of(fastenerMapper.mapToFastener(resultSet));
-            }
-            return Optional.empty();
+
+                return fastenerMapper.mapToFastener(resultSet);
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

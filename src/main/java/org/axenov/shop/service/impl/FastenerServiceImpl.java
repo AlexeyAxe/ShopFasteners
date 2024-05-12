@@ -1,11 +1,27 @@
 package org.axenov.shop.service.impl;
 
+import org.axenov.shop.db.ConnectionManager;
+import org.axenov.shop.db.ConnectionManagerImpl;
 import org.axenov.shop.model.Fastener;
 import org.axenov.shop.repository.impl.FastenerRepositoryImpl;
 import org.axenov.shop.service.FastenerService;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 public class FastenerServiceImpl implements FastenerService {
-    private FastenerRepositoryImpl fastenerRepository;
+    private final FastenerRepositoryImpl fastenerRepository;
+    private final ConnectionManager connectionManager;
+
+    public FastenerServiceImpl()  {
+        connectionManager= new ConnectionManagerImpl();
+        fastenerRepository = new FastenerRepositoryImpl(connectionManager.getConnection());
+    }
+
+    public FastenerServiceImpl(FastenerRepositoryImpl fastenerRepository, ConnectionManager connectionManager) {
+        this.connectionManager=connectionManager;
+        this.fastenerRepository = fastenerRepository;
+    }
 
     @Override
     public boolean save(Fastener fastener) {
@@ -14,6 +30,6 @@ public class FastenerServiceImpl implements FastenerService {
 
     @Override
     public Fastener findById(Long id) {
-        return fastenerRepository.findById(id).get();
+        return fastenerRepository.findById(id);
     }
 }
