@@ -19,6 +19,13 @@ public class User {
         this.orderList = orderList;
     }
 
+    public User(long idUser, String firstName, String lastName, String email) {
+        this.idUser = idUser;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
+
     public User() {
 
     }

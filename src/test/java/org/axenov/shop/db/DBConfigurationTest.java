@@ -12,11 +12,8 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mockConstruction;
 import static org.mockito.Mockito.times;
 
-class DBConfigurationTest {
-
-
-    @ExtendWith(MockitoExtension.class)
-
+@ExtendWith(MockitoExtension.class)
+public class DBConfigurationTest {
 
         @Mock
     HikariConfig hikariConfig;
@@ -25,7 +22,7 @@ class DBConfigurationTest {
         public void getHikariConfigTest() {
 
             try (MockedConstruction<HikariConfig> ignored =
-                         mockConstruction(HikariConfig.class, (mock, context) -> hikariConfig = mock)) {
+                mockConstruction(HikariConfig.class, (mock, context) -> hikariConfig = mock)) {
                 DBConfiguration.getHikariConfig();
                 Mockito.verify(hikariConfig, times(1)).setDataSourceClassName(anyString());
             }

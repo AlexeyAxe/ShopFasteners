@@ -1,14 +1,10 @@
 package org.axenov.shop.repository.mapper.impl;
 
 import org.axenov.shop.model.Brand;
-import org.axenov.shop.repository.mapper.BrandMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.ResultSet;
@@ -35,26 +31,20 @@ class BrandMapperImplTest {
 
     @Test
     public void testMapToBrand() throws SQLException {
-        // Вызов метода mapToBrand
         Brand brand = brandMapper.mapToBrand(resultSet);
 
-        // Проверка, что метод ResultSet.getString был вызван с правильным аргументом
         verify(resultSet).getString("name_brand");
 
-        // Проверка, что метод ResultSet.getLong был вызван с правильным аргументом
         verify(resultSet).getLong("id_brand");
 
-        // Проверка, что метод возвращает объект Brand с правильными значениями
         assertEquals("Test Brand", brand.getNameBrand());
         assertEquals(1L, brand.getIdBrand());
     }
 
     @Test
     void testMapToBrandException() throws SQLException {
-        // Изменение поведения ResultSet.getString(), чтобы вызывать исключение
         when(resultSet.getString("name_brand")).thenThrow(new SQLException());
 
-        // Ожидание выброса исключения IllegalArgumentException
         assertThrows(IllegalArgumentException.class, () -> brandMapper.mapToBrand(resultSet));
     }
 }

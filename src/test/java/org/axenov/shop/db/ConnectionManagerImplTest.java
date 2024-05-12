@@ -17,12 +17,15 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class ConnectionManagerImplTest {
+public class ConnectionManagerImplTest {
 
     @Mock
     private DataSource dataSource;
 
     private ConnectionManagerImplTest databaseConnection;
+
+    public ConnectionManagerImplTest() {
+     }
 
     @BeforeEach
     public void setUp() {
@@ -30,27 +33,20 @@ class ConnectionManagerImplTest {
     }
 
     @Test
-    public void testGetConnection() throws SQLException {
-        // Настроить фиктивный объект DataSource для возврата фиктивного объекта Connection
+    void testGetConnection() throws SQLException {
         Connection connection = mock(Connection.class);
         when(dataSource.getConnection()).thenReturn(connection);
 
-        // Вызвать метод getConnection
         Connection actualConnection = databaseConnection.dataSource.getConnection();
 
-        // Проверить, что метод DataSource.getConnection был вызван
         verify(dataSource).getConnection();
 
-        // Проверить, что метод возвращает фиктивный объект Connection
         assertEquals(connection, actualConnection);
     }
 
     @Test
-    public void testGetConnectionException() throws SQLException {
-        // Настроить фиктивный объект DataSource для выброса исключения SQLException
+    void testGetConnectionException() throws SQLException {
         when(dataSource.getConnection()).thenThrow(new SQLException());
-
-        // Ожидание выброса исключения RuntimeException
         assertThrows(RuntimeException.class, () -> databaseConnection.dataSource.getConnection());
     }
 }
