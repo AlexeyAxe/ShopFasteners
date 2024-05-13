@@ -1,5 +1,6 @@
 package org.axenov.shop.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,6 +25,7 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        orderList=new ArrayList<>();
     }
 
     public User() {

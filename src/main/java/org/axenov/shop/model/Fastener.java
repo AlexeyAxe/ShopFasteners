@@ -1,5 +1,6 @@
 package org.axenov.shop.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,6 +15,11 @@ public class Fastener {
         this.brandList = brandList;
     }
 
+    public Fastener(long idFastener, String nameFastener) {
+        this.idFastener = idFastener;
+        this.nameFastener = nameFastener;
+        brandList = new ArrayList<>();
+    }
 
     public Fastener() {
 

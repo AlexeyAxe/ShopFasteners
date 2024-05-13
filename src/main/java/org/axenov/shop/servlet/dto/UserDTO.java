@@ -2,6 +2,7 @@ package org.axenov.shop.servlet.dto;
 
 import org.axenov.shop.model.Order;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDTO {
@@ -24,6 +25,7 @@ public class UserDTO {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        orderList=new ArrayList<>();
     }
 
     public List<Order> getOrderList() {return orderList;

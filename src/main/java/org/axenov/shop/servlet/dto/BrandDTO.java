@@ -2,6 +2,7 @@ package org.axenov.shop.servlet.dto;
 
 import org.axenov.shop.model.Fastener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BrandDTO {
@@ -15,6 +16,7 @@ public class BrandDTO {
     public BrandDTO(long idBrand, String nameBrand) {
         this.idBrand = idBrand;
         this.nameBrand = nameBrand;
+        fastenerList = new ArrayList<>();
     }
 
     public BrandDTO(long idBrand, String nameBrand, List<Fastener> fastenerList) {

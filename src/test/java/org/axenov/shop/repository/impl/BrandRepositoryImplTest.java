@@ -2,6 +2,7 @@ package org.axenov.shop.repository.impl;
 
 import org.axenov.shop.model.Brand;
 import org.axenov.shop.repository.mapper.BrandMapper;
+import org.axenov.shop.repository.mapper.impl.BrandMapperImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,7 +28,7 @@ class BrandRepositoryImplTest {
     @Mock
     private ResultSet resultSet;
     @Mock
-    private BrandMapper brandMapper;
+    private BrandMapperImpl brandMapper;
 
     private BrandRepositoryImpl brandRepository;
 
@@ -43,13 +44,13 @@ class BrandRepositoryImplTest {
      void testFindById() throws SQLException {
         Brand brand = brandRepository.findById(1L);
 
-        verify(preparedStatement).setLong(1, 1L);
+       verify(preparedStatement).setLong(1, 1L);
 
-        verify(preparedStatement).executeQuery();
+     verify(preparedStatement).executeQuery();
 
-        verify(brandMapper).mapToBrand(resultSet);
+       verify(brandMapper).mapToBrand(resultSet);
 
-        assertEquals(Optional.of(new Brand()), brand);
+        assertEquals(new Brand(), brand);
     }
 
     @Test
