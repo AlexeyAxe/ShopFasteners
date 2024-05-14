@@ -8,6 +8,7 @@ import org.axenov.shop.servlet.dto.UserDTO;
 import org.axenov.shop.model.User;
 import org.axenov.shop.service.UserService;
 import org.axenov.shop.service.impl.UserServiceImpl;
+import org.axenov.shop.servlet.mapper.Impl.UserMapperDTOImpl;
 import org.axenov.shop.servlet.mapper.UserMapperDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,7 +21,7 @@ public class UserServlet extends HttpServlet {
     @Override
     public void init(){
         this.service=new UserServiceImpl();
-        this.dtomapper= UserMapperDTO.INSTANCE;
+        this.dtomapper= new UserMapperDTOImpl();
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

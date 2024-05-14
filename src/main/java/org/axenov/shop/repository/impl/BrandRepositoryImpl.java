@@ -7,7 +7,6 @@ import org.axenov.shop.repository.mapper.impl.BrandMapperImpl;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 
 public class BrandRepositoryImpl implements BrandRepository {
@@ -29,10 +28,10 @@ public class BrandRepositoryImpl implements BrandRepository {
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
-       //     if (resultSet.next()) {
+            if (resultSet.next()) {
                 return brandMapper.mapToBrand(resultSet);
-      //      }
-      //      return null;
+           }
+         return null;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

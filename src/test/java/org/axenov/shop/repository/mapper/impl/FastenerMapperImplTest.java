@@ -30,7 +30,7 @@ class FastenerMapperImplTest {
         when(resultSet.getLong("id_fastener")).thenReturn(1L);
         }
     @Test
-    public void mapToFastenerTest() throws SQLException{
+    void mapToFastenerTest() throws SQLException{
         Fastener fastener=fastenerMapper.mapToFastener(resultSet);
         verify(resultSet).getString("name_fastener");
         verify(resultSet).getLong("id_fastener");

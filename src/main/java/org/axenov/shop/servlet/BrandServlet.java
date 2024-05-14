@@ -9,20 +9,26 @@ import org.axenov.shop.service.BrandService;
 import org.axenov.shop.service.impl.BrandServiceImpl;
 import org.axenov.shop.servlet.dto.BrandDTO;
 import org.axenov.shop.servlet.mapper.BrandMapperDTO;
+import org.axenov.shop.servlet.mapper.Impl.BrandMapperDTOImpl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
 
 public class BrandServlet extends HttpServlet {
-    private BrandService service;
-    private BrandMapperDTO dtomapper;
+    private final BrandService service;
+    private final BrandMapperDTO dtomapper;
 
-    @Override
-    public void init(){
-        this.service=new BrandServiceImpl();
-        this.dtomapper= BrandMapperDTO.INSTANCE;
+    public BrandServlet(BrandService brandService, BrandMapperDTO brandMapperDTO) {
+        this.service=brandService;
+        this.dtomapper= brandMapperDTO;
     }
+
+    public BrandServlet() {
+        service=new BrandServiceImpl();
+        dtomapper=new BrandMapperDTOImpl();
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");

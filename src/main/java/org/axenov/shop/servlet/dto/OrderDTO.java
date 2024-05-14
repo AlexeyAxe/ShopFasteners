@@ -10,6 +10,9 @@ public class OrderDTO {
     private long idFastener;
     private int quantity;
 
+    public OrderDTO() {
+    }
+
     public OrderDTO(long idOrder, LocalDate dateOrder, String status, long idUser, long idFastener, int quantity) {
         this.idOrder = idOrder;
         this.dateOrder = dateOrder;

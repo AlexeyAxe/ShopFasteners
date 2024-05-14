@@ -10,6 +10,9 @@ public class FastenerDTO {
     private String nameFastener;
     private List<Brand> brandList;
 
+    public FastenerDTO() {
+    }
+
     public FastenerDTO(long idFastener, String nameFastener) {
         this.idFastener = idFastener;
         this.nameFastener = nameFastener;

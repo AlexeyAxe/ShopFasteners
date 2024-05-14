@@ -10,23 +10,19 @@ public class DBConfigurationTest {
 
     @BeforeAll
     public static void loadProperties() {
-        //Этот шаг необходим, чтобы инициализировать статический блок класса
-        DBConfiguration.get("testKey");
+        DBConfiguration.getProperties("username");
     }
 
     @Test
     public void shouldReturnCorrectValueGivenExistingKey() {
-        // Act
-        String actualValue = DBConfiguration.get("testKey");
-
-        // Assert
-        assertEquals("testValue", actualValue);
+        String actualValue = DBConfiguration.getProperties("username");
+        assertEquals("postgres", actualValue);
     }
 
     @Test
     public void shouldReturnNullGivenNonExistingKey() {
         // Act
-        String actualValue = DBConfiguration.get("nonExistingKey");
+        String actualValue = DBConfiguration.getProperties("nonExistingKey");
 
         // Assert
         assertNull(actualValue);

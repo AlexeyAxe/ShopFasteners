@@ -12,6 +12,9 @@ public class UserDTO {
     private String email;
     private List<Order> orderList;
 
+    public UserDTO() {
+    }
+
     public UserDTO(long idUser, String firstName, String lastName, String email, List<Order> orderList) {
         this.idUser = idUser;
         this.firstName = firstName;

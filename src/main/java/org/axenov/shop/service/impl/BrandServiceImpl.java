@@ -6,8 +6,6 @@ import org.axenov.shop.service.BrandService;
 import org.axenov.shop.model.Brand;
 import org.axenov.shop.repository.impl.BrandRepositoryImpl;
 
-import java.io.IOException;
-import java.sql.SQLException;
 
 public class BrandServiceImpl implements BrandService {
     private final BrandRepositoryImpl brandRepository;

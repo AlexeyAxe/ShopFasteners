@@ -9,6 +9,7 @@ import org.axenov.shop.model.Fastener;
 import org.axenov.shop.service.FastenerService;
 import org.axenov.shop.service.impl.FastenerServiceImpl;
 import org.axenov.shop.servlet.dto.FastenerDTO;
+import org.axenov.shop.servlet.mapper.Impl.FastenerMapperDTOImpl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,7 +22,7 @@ public class FastenerServlet extends HttpServlet {
     @Override
     public void init(){
         this.service=new FastenerServiceImpl();
-        this.dtomapper= FastenerMapperDTO.INSTANCE;
+        this.dtomapper= new FastenerMapperDTOImpl();
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

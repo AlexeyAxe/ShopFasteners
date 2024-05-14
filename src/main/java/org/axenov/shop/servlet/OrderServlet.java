@@ -4,6 +4,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.axenov.shop.servlet.mapper.Impl.OrderMapperDTOImpl;
 import org.axenov.shop.servlet.mapper.OrderMapperDTO;
 import org.axenov.shop.model.Order;
 import org.axenov.shop.service.OrderService;
@@ -25,7 +26,7 @@ public class OrderServlet extends HttpServlet {
 
         this.service=new OrderServiceImpl();
 
-        this.dtomapper= OrderMapperDTO.INSTANCE;
+        this.dtomapper= new OrderMapperDTOImpl();
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
