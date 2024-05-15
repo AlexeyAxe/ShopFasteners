@@ -48,7 +48,7 @@ public class ConnectionManagerImplRepTest {
 
     @Test
     void getConnectionTest() {
-        try (Connection conn = databaseConnection.getConnection()) {
+        try (Connection connection=databaseConnection.getConnection()) {
             System.out.println("Connection to DB succesfull!");
         } catch (Exception ex) {
             System.out.println("Connection failed...");

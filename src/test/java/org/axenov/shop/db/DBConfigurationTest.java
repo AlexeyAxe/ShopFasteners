@@ -10,19 +10,19 @@ public class DBConfigurationTest {
 
     @BeforeAll
     public static void loadProperties() {
-        DBConfiguration.getProperties("username");
+        DBConfiguration.get("testKey");
     }
 
     @Test
     public void shouldReturnCorrectValueGivenExistingKey() {
-        String actualValue = DBConfiguration.getProperties("username");
-        assertEquals("postgres", actualValue);
+        String actualValue = DBConfiguration.get("testKey");
+        assertEquals("testValue", actualValue);
     }
 
     @Test
     public void shouldReturnNullGivenNonExistingKey() {
         // Act
-        String actualValue = DBConfiguration.getProperties("nonExistingKey");
+        String actualValue = DBConfiguration.get("nonExistingKey");
 
         // Assert
         assertNull(actualValue);
