@@ -15,9 +15,8 @@ public class ConnectionManagerImpl implements ConnectionManager {
 
     public final static HikariDataSource dataSource;
 
-    public ConnectionManagerImpl() {
-    }
-
+//    public ConnectionManagerImpl() {
+//    }
 
      static {
         loadDriver();

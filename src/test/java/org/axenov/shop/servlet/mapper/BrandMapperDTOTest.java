@@ -32,8 +32,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
             BrandDTO brandDTO = new BrandDTO(1L, "Apple",null);
             BrandMapperDTO brandMapperDTO=new BrandMapperDTOImpl();
             Brand brand = brandMapperDTO.toBrand(brandDTO);
-         //   Brand brand = BrandMapperDTO.INSTANCE.toBrand(brandDTO);
-
             assertEquals(brandDTO.getIdBrand(), brand.getIdBrand());
             assertEquals( brandDTO.getNameBrand(), brand.getNameBrand());
             assertEquals(brandDTO.getFastenerList(), brand.getFastenerList());

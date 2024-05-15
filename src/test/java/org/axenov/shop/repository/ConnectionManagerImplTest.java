@@ -1,9 +1,11 @@
-package org.axenov.shop.db;
+package org.axenov.shop.repository;
+
+import org.axenov.shop.db.ConnectionManager;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class ConnectionManagerImplTest implements ConnectionManager{
+public class ConnectionManagerImplTest implements ConnectionManager {
     private final String url;
     private final String username;
     private final String password;

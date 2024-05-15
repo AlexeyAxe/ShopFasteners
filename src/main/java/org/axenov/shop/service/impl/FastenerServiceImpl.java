@@ -11,14 +11,14 @@ import java.sql.SQLException;
 
 public class FastenerServiceImpl implements FastenerService {
     private final FastenerRepositoryImpl fastenerRepository;
-    private final ConnectionManager connectionManager;
+    private final ConnectionManagerImpl connectionManager;
 
     public FastenerServiceImpl()  {
         connectionManager= new ConnectionManagerImpl();
-        fastenerRepository = new FastenerRepositoryImpl(connectionManager.getConnection());
+        fastenerRepository = new FastenerRepositoryImpl(connectionManager);
     }
 
-    public FastenerServiceImpl(FastenerRepositoryImpl fastenerRepository, ConnectionManager connectionManager) {
+    public FastenerServiceImpl(FastenerRepositoryImpl fastenerRepository, ConnectionManagerImpl connectionManager) {
         this.connectionManager=connectionManager;
         this.fastenerRepository = fastenerRepository;
     }

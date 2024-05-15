@@ -10,7 +10,7 @@ create table if not exists fasteners.brand (
                                                name_brand       varchar(10) not null
     );
 
-create table if not exists fasteners.user (
+create table if not exists fasteners.client (
                                               id_user  serial      primary key,
                                               first_name   varchar(10) not null,
     last_name   varchar(20) not null,
@@ -21,7 +21,7 @@ create table if not exists fasteners.order (
                                                date_order      date not null,
                                                status          varchar(14) not null,
     quantity        integer not null,
-    id_user   serial references fasteners.user (id_user),
+    id_user   serial references fasteners.client (id_user),
     id_fastener serial references fasteners.fastener (id_fastener)
     );
 
@@ -45,7 +45,7 @@ values ('Hilti'),
        ('Bosch'),
        ('Sormat');
 
-insert into fasteners.user (first_name, last_name, email)
+insert into fasteners.client (first_name, last_name, email)
 values ('Varvara', 'Vinogradova', 'varv_emo25@hotmail.com'),
        ('Dmitry', 'Vysotsky', 'relex-uyine17@bk.ru'),
        ('Alexander', 'Grigoriev', 'mus_epuvido43@list.ru'),

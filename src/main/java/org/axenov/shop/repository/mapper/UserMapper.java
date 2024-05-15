@@ -1,9 +1,9 @@
 package org.axenov.shop.repository.mapper;
 
-import org.axenov.shop.model.User;
+import org.axenov.shop.model.Client;
 
 import java.sql.ResultSet;
 
 public interface UserMapper {
-    User mapToUser(ResultSet resultSet);
+    Client mapToUser(ResultSet resultSet);
 }

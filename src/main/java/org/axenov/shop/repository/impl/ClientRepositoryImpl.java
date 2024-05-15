@@ -1,43 +1,40 @@
 package org.axenov.shop.repository.impl;
 
 import org.axenov.shop.db.ConnectionManager;
-import org.axenov.shop.db.ConnectionManagerImpl;
-import org.axenov.shop.model.Order;
-import org.axenov.shop.repository.OrderRepository;
+import org.axenov.shop.model.Client;
+import org.axenov.shop.repository.ClientRepository;
 import org.axenov.shop.repository.mapper.impl.ClientMapperImpl;
-import org.axenov.shop.repository.mapper.impl.OrderMapperImpl;
 
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderRepositoryImpl implements OrderRepository {
+public class ClientRepositoryImpl implements ClientRepository {
     private final ConnectionManager connectionManager;
-    private OrderMapperImpl orderMapper;
-    private static final String FIND_BY_ID = "SELECT * FROM order WHERE id_order = ?";
-    private static final String FIND_ALL = "SELECT * FROM order";
-    private static final String DELETE_BY_ID = "DELETE * FROM order WHERE id_order = ?";
-    private static final String SAVE = "INSERT INTO order (id_order,date_order,status,id_user,id_fastener,quantity) VALUES = (?,?,?,?,?,?)";
+    private ClientMapperImpl clientMapper;
+    private static final String FIND_BY_ID = "SELECT * FROM client WHERE id_user = ?";
+    private static final String FIND_ALL = "SELECT * FROM client";
+    private static final String DELETE_BY_ID = "DELETE * FROM client WHERE id_user = ?";
+    private static final String SAVE = "INSERT INTO client(id_user,first_name,last_name,email) VALUES = (?,?,?,?)";
 
-    public OrderRepositoryImpl(ConnectionManager connectionManager) {
+    public ClientRepositoryImpl(ConnectionManager connectionManager) {
         this.connectionManager = connectionManager;
-        orderMapper =new OrderMapperImpl();
-
+        clientMapper =new ClientMapperImpl();
     }
 
     @Override
-    public Order findById(Long id) {
+    public Client findById(Long id) {
         try (PreparedStatement preparedStatement = connectionManager
                 .getConnection().prepareStatement(FIND_BY_ID)) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-            return orderMapper.mapToOrder(resultSet);
+            return clientMapper.mapToUser(resultSet);
             }
             return null;
         } catch (SQLException | IOException e) {
-            throw new RuntimeException("Not found order by ID", e);
+            throw new RuntimeException("Not found user by ID", e);
         }
     }
 
@@ -48,44 +45,42 @@ public class OrderRepositoryImpl implements OrderRepository {
             preparedStatement.setLong(1, id);
             return preparedStatement.executeUpdate() > 0;
         } catch (SQLException | IOException e) {
-            throw new RuntimeException("Not delete order", e);
+            throw new RuntimeException("Not delete user by ID", e);
         }
     }
 
     @Override
-    public List<Order> findAll() {
-        List<Order> orders = new ArrayList<>();
+    public List<Client> findAll() {
+        List<Client> clients = new ArrayList<>();
         try (PreparedStatement preparedStatement = connectionManager
                 .getConnection().prepareStatement(FIND_ALL)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                orders.add(orderMapper.mapToOrder(resultSet));
+                 clients.add(clientMapper.mapToUser(resultSet));
             }
-            return orders;
+            return clients;
         } catch (SQLException | IOException e) {
-            throw new RuntimeException("Not found all order by ID", e);
+            throw new RuntimeException("Not found all user by ID", e);
         }
     }
 
     @Override
-    public boolean save(Order order) {
+    public boolean save(Client client) {
         try (PreparedStatement preparedStatement = connectionManager
                 .getConnection().prepareStatement(SAVE)) {
-            preparedStatement.setLong(1, order.getIdOrder());
-            preparedStatement.setDate(2, Date.valueOf(order.getDateOrder()));
-            preparedStatement.setString(3, order.getStatus());
-            preparedStatement.setLong(4, order.getIdUser());
-            preparedStatement.setLong(5, order.getIdFastener());
-            preparedStatement.setInt(6, order.getQuantity());
+            preparedStatement.setLong(1, client.getIdUser());
+            preparedStatement.setString(2, client.getFirstName());
+            preparedStatement.setString(3, client.getLastName());
+            preparedStatement.setString(4, client.getEmail());
             int i = preparedStatement.executeUpdate();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             if(resultSet.next()){
-                orderMapper.mapToOrder(resultSet);
-                return i>0;
+                clientMapper.mapToUser(resultSet);
+            return i>0;
             }
         }
         catch (SQLException | IOException e) {
-            throw new RuntimeException("Not save order", e);
+            throw new RuntimeException("Not save user", e);
         }
         return false;
     }

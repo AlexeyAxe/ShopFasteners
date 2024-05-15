@@ -5,14 +5,14 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class User {
+public class Client {
     private long idUser;
     private String firstName;
     private String lastName;
     private String email;
     private List<Order> orderList;
 
-    public User(long idUser, String firstName, String lastName, String email, List<Order> orderList) {
+    public Client(long idUser, String firstName, String lastName, String email, List<Order> orderList) {
         this.idUser = idUser;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -20,7 +20,7 @@ public class User {
         this.orderList = orderList;
     }
 
-    public User(long idUser, String firstName, String lastName, String email) {
+    public Client(long idUser, String firstName, String lastName, String email) {
         this.idUser = idUser;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -28,7 +28,7 @@ public class User {
         orderList=new ArrayList<>();
     }
 
-    public User() {
+    public Client() {
 
     }
 
@@ -75,10 +75,10 @@ public class User {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        User user = (User) o;
-        return idUser == user.idUser && Objects.equals(firstName, user.firstName) &&
-                Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email);
+        if (!(o instanceof Client)) return false;
+        Client client = (Client) o;
+        return idUser == client.idUser && Objects.equals(firstName, client.firstName) &&
+                Objects.equals(lastName, client.lastName) && Objects.equals(email, client.email);
     }
 
     @Override

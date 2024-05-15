@@ -5,17 +5,17 @@ import org.axenov.shop.model.Order;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDTO {
+public class ClientDTO {
     private long idUser;
     private String firstName;
     private String lastName;
     private String email;
     private List<Order> orderList;
 
-    public UserDTO() {
+    public ClientDTO() {
     }
 
-    public UserDTO(long idUser, String firstName, String lastName, String email, List<Order> orderList) {
+    public ClientDTO(long idUser, String firstName, String lastName, String email, List<Order> orderList) {
         this.idUser = idUser;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -23,7 +23,7 @@ public class UserDTO {
         this.orderList = orderList;
     }
 
-    public UserDTO(long idUser, String firstName, String lastName, String email) {
+    public ClientDTO(long idUser, String firstName, String lastName, String email) {
         this.idUser = idUser;
         this.firstName = firstName;
         this.lastName = lastName;

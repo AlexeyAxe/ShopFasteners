@@ -28,6 +28,12 @@ public class OrderServlet extends HttpServlet {
 
         this.dtomapper= new OrderMapperDTOImpl();
     }
+    public void init(OrderService service, OrderMapperDTO dtomapper){
+
+        this.service=service;
+
+        this.dtomapper= dtomapper;
+    }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");

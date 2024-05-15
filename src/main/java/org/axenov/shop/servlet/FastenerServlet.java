@@ -24,6 +24,11 @@ public class FastenerServlet extends HttpServlet {
         this.service=new FastenerServiceImpl();
         this.dtomapper= new FastenerMapperDTOImpl();
     }
+
+    public void init(FastenerService fastenerService, FastenerMapperDTO fastenerMapperDTO){
+        this.service=fastenerService;
+        this.dtomapper=fastenerMapperDTO;
+    }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
@@ -65,4 +70,5 @@ public class FastenerServlet extends HttpServlet {
         out.println("</body></html>");
         out.close();
     }
+
 }

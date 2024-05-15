@@ -41,7 +41,7 @@ public class BrandServiceImplTest {
         brand.setNameBrand("Test Brand");
         brand.setIdBrand(1L);
 
-        when(brandRepository.findById(1L)).thenReturn(null);
+        when(brandRepository.findById(1L)).thenReturn(brand);
 
         Brand foundBrand = brandService.findById(1L);
 

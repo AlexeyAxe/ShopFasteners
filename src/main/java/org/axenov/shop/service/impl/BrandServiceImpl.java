@@ -9,10 +9,10 @@ import org.axenov.shop.repository.impl.BrandRepositoryImpl;
 
 public class BrandServiceImpl implements BrandService {
     private final BrandRepositoryImpl brandRepository;
-    private final ConnectionManager connectionManager;
+    private final ConnectionManagerImpl connectionManager;
 
 
-    public BrandServiceImpl(BrandRepositoryImpl brandRepository, ConnectionManager connectionManager) {
+    public BrandServiceImpl(BrandRepositoryImpl brandRepository, ConnectionManagerImpl connectionManager) {
         this.connectionManager=connectionManager;
         this.brandRepository = brandRepository;
 
@@ -20,7 +20,7 @@ public class BrandServiceImpl implements BrandService {
 
     public BrandServiceImpl()  {
         connectionManager= new ConnectionManagerImpl();
-        brandRepository=new BrandRepositoryImpl(connectionManager.getConnection());
+        brandRepository=new BrandRepositoryImpl(connectionManager);
     }
 
     @Override

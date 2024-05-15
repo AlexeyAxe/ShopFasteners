@@ -1,7 +1,7 @@
 package org.axenov.shop.repository.impl;
 
+import org.axenov.shop.db.ConnectionManagerImpl;
 import org.axenov.shop.model.Brand;
-import org.axenov.shop.repository.mapper.BrandMapper;
 import org.axenov.shop.repository.mapper.impl.BrandMapperImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
-import java.sql.Connection;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class BrandRepositoryImplTest {
     @Mock
-    private Connection connection;
+    private ConnectionManagerImpl connectionManager;
     @Mock
     private PreparedStatement preparedStatement;
     @Mock
@@ -34,8 +34,8 @@ class BrandRepositoryImplTest {
 
     @BeforeEach
      void setUp() throws SQLException {
-        brandRepository = new BrandRepositoryImpl(connection);
-        when(connection.prepareStatement(BrandRepositoryImpl.FIND_BY_ID)).thenReturn(preparedStatement);
+        brandRepository = new BrandRepositoryImpl(connectionManager);
+        when(connectionManager.getConnection().prepareStatement(BrandRepositoryImpl.FIND_BY_ID)).thenReturn(preparedStatement);
         when(preparedStatement.executeQuery()).thenReturn(resultSet);
         when(brandMapper.mapToBrand(resultSet)).thenReturn(new Brand());
     }

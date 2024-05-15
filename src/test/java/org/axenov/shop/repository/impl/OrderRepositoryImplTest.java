@@ -1,28 +1,26 @@
 package org.axenov.shop.repository.impl;
 
-import net.bytebuddy.utility.dispatcher.JavaDispatcher;
 import org.axenov.shop.db.ConnectionManager;
-import org.axenov.shop.db.ConnectionManagerImpl;
-import org.axenov.shop.model.Fastener;
+import org.axenov.shop.model.Order;
 import org.axenov.shop.repository.ConnectionManagerImplTest;
-import org.axenov.shop.repository.FastenerRepository;
+import org.axenov.shop.repository.OrderRepository;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-        import org.junit.jupiter.api.extension.ExtendWith;
-        import org.testcontainers.containers.PostgreSQLContainer;
-        import org.testcontainers.junit.jupiter.Container;
-        import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.io.IOException;
-import java.sql.*;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
 
-        import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Testcontainers
-public class FastenerRepositoryImplTest {
+class OrderRepositoryImplTest {
 
     @Container
     static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:13.1")
@@ -30,7 +28,7 @@ public class FastenerRepositoryImplTest {
             .withUsername("testuser")
             .withPassword("password");
 
-    private FastenerRepository repository;
+    private OrderRepository repository;
     ConnectionManager connectionProvider;
 
     @BeforeAll
@@ -50,27 +48,33 @@ public class FastenerRepositoryImplTest {
                 postgreSQLContainer.getUsername(),
                 postgreSQLContainer.getPassword()
         );
-        repository = new FastenerRepositoryImpl(connectionProvider);
+        repository = new OrderRepositoryImpl(connectionProvider);
     }
 
     @Test
     public void testFindById() throws SQLException {
 
-            executeUpdate(connectionProvider,
-                    "CREATE TABLE fastener(" +
-                            "id_fastener serial PRIMARY KEY," +
-                            "name_fastener varchar(20)" +
-                            ");");
+        executeUpdate(connectionProvider,
 
-            executeUpdate(connectionProvider, "INSERT INTO fastener(id_fastener,name_fastener) VALUES (1,'Anchor')");
+                "CREATE TABLE order(" +
+                        "id_order serial PRIMARY KEY," +
+                        "date_order date not null," +
+                        "status varchar(14) not null," +
+                        "id_user serial," +
+                       "id_fastener serial" +
+                        "quantity integer not null," +
+                        ");");
 
-                Fastener fastenerExpected = new Fastener(1,"Anchor",null);
+        executeUpdate(connectionProvider, "INSERT INTO order(id_order,date_order,status,id_user,id_fastener,quantity) " +
+                "VALUES (1,'2024-04-18','PLACED', 6, 1, 10)");
 
-                Fastener fastenerActual = repository.findById(1L);
+        Order orderExpected = new Order(1, LocalDate.of(2024,4,18),"PLACED", 6, 1, 10 );
 
-                assertEquals(fastenerExpected, fastenerActual);
+        Order orderActual = repository.findById(1L);
 
-        }
+        assertEquals(orderExpected, orderActual);
+
+    }
 
 
     private void executeUpdate(ConnectionManager connectionManager, String sql) {

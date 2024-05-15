@@ -21,10 +21,8 @@ public class DBConfigurationTest {
 
     @Test
     public void shouldReturnNullGivenNonExistingKey() {
-        // Act
         String actualValue = DBConfiguration.get("nonExistingKey");
 
-        // Assert
         assertNull(actualValue);
     }
 }

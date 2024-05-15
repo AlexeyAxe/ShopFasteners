@@ -1,26 +1,29 @@
 package org.axenov.shop.repository.impl;
 
-import org.axenov.shop.db.ConnectionManagerImplRepTest;
-import org.axenov.shop.db.ConnectionManagerImplTest;
-import org.axenov.shop.model.User;
+import org.axenov.shop.repository.ConnectionManagerImplTest;
+import org.axenov.shop.model.Client;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.sql.SQLException;
 import java.util.List;
 
-import static org.axenov.shop.db.ConnectionManagerImpl.dataSource;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class UserRepositoryImplTest {
+@Testcontainers
+class ClientRepositoryImplTest {
+
+    @Container
     static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(
             "postgres:15-alpine"
     );
 
-    UserRepositoryImpl userRepository;
+    ClientRepositoryImpl clientRepository;
 
     @BeforeAll
     static void beforeAll() {
@@ -39,15 +42,15 @@ class UserRepositoryImplTest {
                 postgres.getUsername(),
                 postgres.getPassword()
         );
-        userRepository = new UserRepositoryImpl(connectionManager.getConnection());
+        clientRepository = new ClientRepositoryImpl(connectionManager);
     }
 
     @Test
     void shouldGetCustomers() {
-        userRepository.save(new User(1,"Ivan","Gorshenev", "ivan@mail.ru"));
-        userRepository.save(new User(2,"Alex","Knyazev", "alex@mail.ru"));
+        clientRepository.save(new Client(1,"Ivan","Gorshenev", "ivan@mail.ru"));
+        clientRepository.save(new Client(2,"Alex","Knyazev", "alex@mail.ru"));
 
-        List<User> users =  userRepository.findAll();
-        assertEquals(2, users.size());
+        List<Client> clients =  clientRepository.findAll();
+        assertEquals(2, clients.size());
     }
 }

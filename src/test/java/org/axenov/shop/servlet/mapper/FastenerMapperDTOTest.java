@@ -16,8 +16,7 @@ class FastenerMapperDTOTest {
 
     @Test
     void testToFastenerDTO() {
-        Fastener fastener= new Fastener(1L,"тест", null);
-
+        Fastener fastener = new Fastener(1L, "ancor", null);
         FastenerMapperDTO dtoMapper = new FastenerMapperDTOImpl();
 
         Assertions.assertEquals(fastener.getIdFastener(), dtoMapper.toFastenerDTO(fastener).getIdFastener());
@@ -26,12 +25,12 @@ class FastenerMapperDTOTest {
 
     @Test
     void testToFastener() {
-        FastenerDTO fastenerDTO = new FastenerDTO(1L, "Apple",null);
-        FastenerMapperDTO fastenerMapperDTO=new FastenerMapperDTOImpl();
+        FastenerDTO fastenerDTO = new FastenerDTO(1L, "nut", null);
+        FastenerMapperDTO fastenerMapperDTO = new FastenerMapperDTOImpl();
         Fastener brand = fastenerMapperDTO.toFastener(fastenerDTO);
 
         assertEquals(fastenerDTO.getIdFastener(), brand.getIdFastener());
-        assertEquals( fastenerDTO.getNameFastener(), brand.getNameFastener());
+        assertEquals(fastenerDTO.getNameFastener(), brand.getNameFastener());
         assertEquals(fastenerDTO.getBrandList(), brand.getBrandList());
     }
 
