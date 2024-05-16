@@ -24,13 +24,8 @@ public class Fastener {
     public Fastener() {
 
     }
-
     public List<Brand> getBrandList() {
         return brandList;
-    }
-
-    public void setBrandList(List<Brand> brandList) {
-        this.brandList = brandList;
     }
 
     public long getIdFastener() {
@@ -51,8 +46,12 @@ public class Fastener {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Fastener)) return false;
+        if (this == o){
+            return true;
+        }
+        if (!(o instanceof Fastener)) {
+            return false;
+        }
         Fastener fastener = (Fastener) o;
         return idFastener == fastener.idFastener && Objects.equals(nameFastener, fastener.nameFastener);
     }
@@ -62,12 +61,4 @@ public class Fastener {
         return Objects.hash(idFastener, nameFastener, brandList);
     }
 
-    @Override
-    public String toString() {
-        return "fastener{" +
-                "idFastener=" + idFastener +
-                ", name_fastener='" + nameFastener + '\'' +
-                ", brandList=" + brandList +
-                '}';
-    }
 }

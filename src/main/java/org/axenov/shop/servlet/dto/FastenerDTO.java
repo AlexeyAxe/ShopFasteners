@@ -16,7 +16,7 @@ public class FastenerDTO {
     public FastenerDTO(long idFastener, String nameFastener) {
         this.idFastener = idFastener;
         this.nameFastener = nameFastener;
-        brandList=new ArrayList<>();
+        brandList = new ArrayList<>();
     }
 
     public FastenerDTO(long idFastener, String nameFastener, List<Brand> brandList) {
@@ -25,23 +25,23 @@ public class FastenerDTO {
         this.brandList = brandList;
     }
 
-    public long getIdFastener(){
+    public long getIdFastener() {
         return idFastener;
     }
-    public String getNameFastener(){
+
+    public String getNameFastener() {
         return nameFastener;
     }
-    public void setIdFastener(long idFastener){
-     this.idFastener=idFastener;
+
+    public void setIdFastener(long idFastener) {
+        this.idFastener = idFastener;
     }
-    public void setNameFastener(String nameFastener){
+
+    public void setNameFastener(String nameFastener) {
         this.nameFastener = nameFastener;
     }
+
     public List<Brand> getBrandList() {
         return brandList;
     }
-    public void setBrandList(List<Brand> brandList) {
-        this.brandList = brandList;
-    }
-
 }

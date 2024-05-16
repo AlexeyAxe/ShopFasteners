@@ -15,7 +15,7 @@ public class Brand {
     public Brand(long idBrand, String nameBrand) {
         this.idBrand = idBrand;
         this.nameBrand = nameBrand;
-        fastenerList=new ArrayList<>();
+        fastenerList = new ArrayList<>();
     }
 
     public Brand(long idBrand, String nameBrand, List<Fastener> fastenerList) {
@@ -26,10 +26,6 @@ public class Brand {
 
     public List<Fastener> getFastenerList() {
         return fastenerList;
-    }
-
-    public void setFastenerList(List<Fastener> fastenerList) {
-        this.fastenerList = fastenerList;
     }
 
     public long getIdBrand() {
@@ -50,10 +46,12 @@ public class Brand {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
+        if (this == o) {
             return true;
-        if (!(o instanceof Brand))
+        }
+        if (!(o instanceof Brand)) {
             return false;
+        }
         Brand brand = (Brand) o;
         return idBrand == brand.idBrand && Objects.equals(nameBrand, brand.nameBrand) &&
                 Objects.equals(fastenerList, brand.fastenerList);
@@ -64,12 +62,4 @@ public class Brand {
         return Objects.hash(idBrand, nameBrand, fastenerList);
     }
 
-    @Override
-    public String toString() {
-        return "brand{" +
-                "idBrand=" + idBrand +
-                ", nameBrand='" + nameBrand + '\'' +
-                ", fastenerList=" + fastenerList +
-                '}';
-    }
 }

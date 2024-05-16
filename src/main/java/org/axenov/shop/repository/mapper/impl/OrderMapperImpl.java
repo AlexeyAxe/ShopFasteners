@@ -19,7 +19,7 @@ public class OrderMapperImpl implements OrderMapper {
         order.setQuantity(resultSet.getInt("quantity"));
         return order;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException(e);
         }
     }
 }

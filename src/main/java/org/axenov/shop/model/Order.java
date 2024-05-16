@@ -73,8 +73,12 @@ public class Order {
     }
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Order)) return false;
+        if (this == o){
+            return true;
+        }
+        if (!(o instanceof Order)) {
+            return false;
+        }
         Order order = (Order) o;
         return idOrder == order.idOrder && idUser == order.idUser &&
                 Objects.equals(dateOrder, order.dateOrder) &&
@@ -88,16 +92,4 @@ public class Order {
         return Objects.hash(idOrder, dateOrder, status, idUser, idFastener, quantity);
     }
 
-
-    @Override
-    public String toString() {
-        return "Order{" +
-                "idOrder=" + idOrder +
-                ", dateOrder=" + dateOrder +
-                ", status='" + status + '\'' +
-                ", idUser=" + idUser +
-                ", idFastener=" + idFastener +
-                ", quantity=" + quantity +
-                '}';
-    }
 }

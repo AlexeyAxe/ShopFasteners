@@ -1,7 +1,6 @@
 package org.axenov.shop.repository.impl;
 
 import org.axenov.shop.db.ConnectionManager;
-import org.axenov.shop.db.ConnectionManagerImpl;
 import org.axenov.shop.repository.FastenerRepository;
 import org.axenov.shop.model.Fastener;
 import org.axenov.shop.repository.mapper.impl.FastenerMapperImpl;
@@ -18,11 +17,11 @@ public class FastenerRepositoryImpl implements FastenerRepository {
     private static final String FIND_BY_ID = "SELECT * FROM fastener WHERE id_fastener = ?";
     private static final String FIND_ALL = "SELECT * FROM fastener";
     private static final String DELETE_BY_ID = "DELETE * FROM fastener WHERE id_fastener = ?";
-    private static final String SAVE = "INSERT INTO fastener(id_fastener,name_fastener) VALUES = (?,?)";
+    private static final String SAVE = "INSERT INTO fastener(id_fastener,name_fastener) VALUES (?,?)";
 
     public FastenerRepositoryImpl(ConnectionManager connectionManager) {
         this.connectionManager = connectionManager;
-        fastenerMapper=new FastenerMapperImpl();
+        fastenerMapper = new FastenerMapperImpl();
     }
 
     @Override
@@ -32,7 +31,7 @@ public class FastenerRepositoryImpl implements FastenerRepository {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
 
-                return fastenerMapper.mapToFastener(resultSet);
+            return fastenerMapper.mapToFastener(resultSet);
 
         } catch (SQLException | IOException e) {
             throw new RuntimeException("Not found fastener by ID", e);
@@ -44,21 +43,20 @@ public class FastenerRepositoryImpl implements FastenerRepository {
         try (PreparedStatement preparedStatement = connectionManager
                 .getConnection().prepareStatement(DELETE_BY_ID)) {
             preparedStatement.setLong(1, id);
-            return preparedStatement.executeUpdate()>0;
-        }
-        catch (SQLException | IOException e) {
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException | IOException e) {
             throw new RuntimeException("Not delete fastener", e);
         }
     }
 
     @Override
     public List<Fastener> findAll() {
-        List<Fastener>fastenersList=new ArrayList<>();
+        List<Fastener> fastenersList = new ArrayList<>();
         try (PreparedStatement preparedStatement = connectionManager
                 .getConnection().prepareStatement(FIND_ALL)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-            fastenersList.add(fastenerMapper.mapToFastener(resultSet));
+                fastenersList.add(fastenerMapper.mapToFastener(resultSet));
             }
             return fastenersList;
         } catch (SQLException | IOException e) {
@@ -72,9 +70,8 @@ public class FastenerRepositoryImpl implements FastenerRepository {
                 .getConnection().prepareStatement(SAVE)) {
             preparedStatement.setLong(1, fastener.getIdFastener());
             preparedStatement.setString(2, fastener.getNameFastener());
-            return preparedStatement.executeUpdate()>0;
-        }
-        catch (SQLException | IOException e) {
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException | IOException e) {
             throw new RuntimeException("Not save fastener", e);
         }
     }

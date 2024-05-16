@@ -1,10 +1,8 @@
 package org.axenov.shop.repository.impl;
 
 import org.axenov.shop.db.ConnectionManager;
-import org.axenov.shop.db.ConnectionManagerImpl;
 import org.axenov.shop.model.Order;
 import org.axenov.shop.repository.OrderRepository;
-import org.axenov.shop.repository.mapper.impl.ClientMapperImpl;
 import org.axenov.shop.repository.mapper.impl.OrderMapperImpl;
 
 import java.io.IOException;
@@ -18,7 +16,7 @@ public class OrderRepositoryImpl implements OrderRepository {
     private static final String FIND_BY_ID = "SELECT * FROM order WHERE id_order = ?";
     private static final String FIND_ALL = "SELECT * FROM order";
     private static final String DELETE_BY_ID = "DELETE * FROM order WHERE id_order = ?";
-    private static final String SAVE = "INSERT INTO order (id_order,date_order,status,id_user,id_fastener,quantity) VALUES = (?,?,?,?,?,?)";
+    private static final String SAVE = "INSERT INTO order (id_order,date_order,status,id_user,id_fastener,quantity) VALUES (?,?,?,?,?,?)";
 
     public OrderRepositoryImpl(ConnectionManager connectionManager) {
         this.connectionManager = connectionManager;
@@ -69,6 +67,7 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public boolean save(Order order) {
+        boolean result;
         try (PreparedStatement preparedStatement = connectionManager
                 .getConnection().prepareStatement(SAVE)) {
             preparedStatement.setLong(1, order.getIdOrder());
@@ -77,16 +76,10 @@ public class OrderRepositoryImpl implements OrderRepository {
             preparedStatement.setLong(4, order.getIdUser());
             preparedStatement.setLong(5, order.getIdFastener());
             preparedStatement.setInt(6, order.getQuantity());
-            int i = preparedStatement.executeUpdate();
-            ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            if(resultSet.next()){
-                orderMapper.mapToOrder(resultSet);
-                return i>0;
-            }
-        }
-        catch (SQLException | IOException e) {
+            result = preparedStatement.executeUpdate()>0;
+          } catch (SQLException | IOException e) {
             throw new RuntimeException("Not save order", e);
         }
-        return false;
+        return result;
     }
 }

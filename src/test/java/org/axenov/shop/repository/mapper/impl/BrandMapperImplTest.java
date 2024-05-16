@@ -31,7 +31,7 @@ class BrandMapperImplTest {
     }
 
     @Test
-     void mapToBrandTest() throws SQLException {
+    void mapToBrandTest() throws SQLException {
         Brand brand = brandMapper.mapToBrand(resultSet);
 
         verify(resultSet).getString("name_brand");

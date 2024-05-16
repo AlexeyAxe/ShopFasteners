@@ -25,16 +25,17 @@ class ClientMapperImplTest {
 
     @BeforeEach
     public void setUp() throws SQLException {
-        userMapper =new ClientMapperImpl();
+        userMapper = new ClientMapperImpl();
         when(resultSet.getLong("id_user")).thenReturn(2L);
         when(resultSet.getString("first_name")).thenReturn("Test First Name");
         when(resultSet.getString("last_name")).thenReturn("Test Last Name");
         when(resultSet.getString("email")).thenReturn("Test Email");
 
     }
+
     @Test
-    void mapToUserTest() throws SQLException{
-        Client client =userMapper.mapToUser(resultSet);
+    void mapToUserTest() throws SQLException {
+        Client client = userMapper.mapToUser(resultSet);
         verify(resultSet).getLong("id_user");
         verify(resultSet).getString("first_name");
         verify(resultSet).getString("last_name");

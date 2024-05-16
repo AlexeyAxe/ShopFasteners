@@ -1,7 +1,6 @@
 package org.axenov.shop.repository.impl;
 
 import org.axenov.shop.db.ConnectionManager;
-import org.axenov.shop.db.ConnectionManagerImpl;
 import org.axenov.shop.repository.BrandRepository;
 import org.axenov.shop.model.Brand;
 import org.axenov.shop.repository.mapper.impl.BrandMapperImpl;
@@ -17,10 +16,10 @@ public class BrandRepositoryImpl implements BrandRepository {
     private final ConnectionManager connectionManager;
     private BrandMapperImpl brandMapper;
 
-    static final String FIND_BY_ID = "SELECT * FROM brand WHERE id_brand = ?";
+    private static final String FIND_BY_ID = "SELECT * FROM brand WHERE id_brand = ?";
     private static final String FIND_ALL = "SELECT * FROM brand";
     private static final String DELETE_BY_ID = "DELETE * FROM brand WHERE id_brand = ?";
-    private static final String SAVE = "INSERT INTO brand(id_brand,name_brand) VALUES = (?,?)";
+    private static final String SAVE = "INSERT INTO brand(id_brand,name_brand) VALUES (?,?)";
 
     public BrandRepositoryImpl(ConnectionManager connectionManager) {
         this.connectionManager = connectionManager;
@@ -69,13 +68,15 @@ public class BrandRepositoryImpl implements BrandRepository {
 
     @Override
     public boolean save(Brand brand) {
+        boolean result;
         try (PreparedStatement preparedStatement = connectionManager
                 .getConnection().prepareStatement(SAVE)) {
             preparedStatement.setLong(1, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(2, brand.getNameBrand());
-            return preparedStatement.executeUpdate() > 0;
+            result= preparedStatement.executeUpdate() > 0;
         } catch (SQLException | IOException e) {
             throw new RuntimeException("Not save brand", e);
         }
+        return result;
     }
 }

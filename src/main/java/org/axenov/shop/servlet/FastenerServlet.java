@@ -1,15 +1,12 @@
 package org.axenov.shop.servlet;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.axenov.shop.servlet.mapper.FastenerMapperDTO;
 import org.axenov.shop.model.Fastener;
 import org.axenov.shop.service.FastenerService;
-import org.axenov.shop.service.impl.FastenerServiceImpl;
 import org.axenov.shop.servlet.dto.FastenerDTO;
-import org.axenov.shop.servlet.mapper.Impl.FastenerMapperDTOImpl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,18 +16,13 @@ public class FastenerServlet extends HttpServlet {
     private FastenerService service;
     private FastenerMapperDTO dtomapper;
 
-    @Override
-    public void init(){
-        this.service=new FastenerServiceImpl();
-        this.dtomapper= new FastenerMapperDTOImpl();
+    public void init(FastenerService fastenerService, FastenerMapperDTO fastenerMapperDTO) {
+        this.service = fastenerService;
+        this.dtomapper = fastenerMapperDTO;
     }
 
-    public void init(FastenerService fastenerService, FastenerMapperDTO fastenerMapperDTO){
-        this.service=fastenerService;
-        this.dtomapper=fastenerMapperDTO;
-    }
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/html");
         resp.setCharacterEncoding("UTF-8");
         long id = Long.parseLong(req.getParameter("id"));
@@ -50,7 +42,7 @@ public class FastenerServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         resp.setContentType("text/html");
         resp.setCharacterEncoding("UTF-8");

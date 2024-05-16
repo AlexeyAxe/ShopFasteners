@@ -1,6 +1,5 @@
 package org.axenov.shop.service.impl;
 
-import org.axenov.shop.db.ConnectionManager;
 import org.axenov.shop.db.ConnectionManagerImpl;
 import org.axenov.shop.service.BrandService;
 import org.axenov.shop.model.Brand;
@@ -16,11 +15,6 @@ public class BrandServiceImpl implements BrandService {
         this.connectionManager=connectionManager;
         this.brandRepository = brandRepository;
 
-    }
-
-    public BrandServiceImpl()  {
-        connectionManager= new ConnectionManagerImpl();
-        brandRepository=new BrandRepositoryImpl(connectionManager);
     }
 
     @Override

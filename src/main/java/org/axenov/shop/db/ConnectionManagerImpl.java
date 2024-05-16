@@ -13,10 +13,7 @@ public class ConnectionManagerImpl implements ConnectionManager {
     private static final String URL_KEY = "jdbcUrl";
     private static final String DRIVER_KEY = "driverClassName";
 
-    public final static HikariDataSource dataSource;
-
-//    public ConnectionManagerImpl() {
-//    }
+    public static final HikariDataSource dataSource;
 
      static {
         loadDriver();

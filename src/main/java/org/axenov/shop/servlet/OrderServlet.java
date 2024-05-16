@@ -4,16 +4,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.axenov.shop.servlet.mapper.Impl.OrderMapperDTOImpl;
 import org.axenov.shop.servlet.mapper.OrderMapperDTO;
 import org.axenov.shop.model.Order;
 import org.axenov.shop.service.OrderService;
-import org.axenov.shop.service.impl.OrderServiceImpl;
 import org.axenov.shop.servlet.dto.OrderDTO;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.time.LocalDate;
 
 
@@ -21,19 +18,13 @@ public class OrderServlet extends HttpServlet {
     private OrderService service;
     private OrderMapperDTO dtomapper;
 
-    @Override
-    public void init(){
+    public void init(OrderService service, OrderMapperDTO dtomapper) {
 
-        this.service=new OrderServiceImpl();
+        this.service = service;
 
-        this.dtomapper= new OrderMapperDTOImpl();
+        this.dtomapper = dtomapper;
     }
-    public void init(OrderService service, OrderMapperDTO dtomapper){
 
-        this.service=service;
-
-        this.dtomapper= dtomapper;
-    }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
@@ -65,11 +56,11 @@ public class OrderServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         long idOrder = Long.parseLong(req.getParameter("idOrder"));
         String status = req.getParameter("status");
-        LocalDate dateOrder= LocalDate.parse(req.getParameter("dateOrder"));
-        long idUser= Long.parseLong(req.getParameter("idUser"));
-        long idFastener= Long.parseLong(req.getParameter("idFastener"));
-        int quantity= Integer.parseInt(req.getParameter("quantity"));
-        OrderDTO orderDTO = new OrderDTO(idOrder,dateOrder,status, idUser, idFastener, quantity);
+        LocalDate dateOrder = LocalDate.parse(req.getParameter("dateOrder"));
+        long idUser = Long.parseLong(req.getParameter("idUser"));
+        long idFastener = Long.parseLong(req.getParameter("idFastener"));
+        int quantity = Integer.parseInt(req.getParameter("quantity"));
+        OrderDTO orderDTO = new OrderDTO(idOrder, dateOrder, status, idUser, idFastener, quantity);
         Order order = dtomapper.toOrder(orderDTO);
         boolean save = service.save(order);
 

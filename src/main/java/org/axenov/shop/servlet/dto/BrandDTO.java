@@ -25,18 +25,16 @@ public class BrandDTO {
         this.fastenerList = fastenerList;
     }
 
-    public long getIdBrand(){
+    public long getIdBrand() {
         return idBrand;
     }
-    public  String getNameBrand(){
+
+    public String getNameBrand() {
         return nameBrand;
     }
+
     public List<Fastener> getFastenerList() {
         return fastenerList;
-    }
-
-    public void setFastenerList(List<Fastener> fastenerList) {
-        this.fastenerList = fastenerList;
     }
 
     public void setIdBrand(long idBrand) {

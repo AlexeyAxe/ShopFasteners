@@ -17,7 +17,7 @@ public class ClientMapperImpl implements UserMapper {
             client.setEmail(resultSet.getString("email"));
             return client;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException(e);
         }
     }
 }

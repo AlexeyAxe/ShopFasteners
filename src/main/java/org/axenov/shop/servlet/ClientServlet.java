@@ -1,15 +1,13 @@
 package org.axenov.shop.servlet;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.axenov.shop.model.Client;
 import org.axenov.shop.servlet.dto.ClientDTO;
 import org.axenov.shop.service.ClientService;
-import org.axenov.shop.service.impl.ClientServiceImpl;
-import org.axenov.shop.servlet.mapper.Impl.ClientMapperDTOImpl;
 import org.axenov.shop.servlet.mapper.ClientMapperDTO;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -18,13 +16,13 @@ public class ClientServlet extends HttpServlet {
     ClientService service;
     ClientMapperDTO dtomapper;
 
-    @Override
-    public void init(){
-        this.service=new ClientServiceImpl();
-        this.dtomapper= new ClientMapperDTOImpl();
+    public void init(ClientService service, ClientMapperDTO mapperDTO) {
+        this.service = service;
+        this.dtomapper = mapperDTO;
     }
+
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/html");
         resp.setCharacterEncoding("UTF-8");
         long id = Long.parseLong(req.getParameter("id"));
@@ -46,7 +44,7 @@ public class ClientServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         resp.setContentType("text/html");
         resp.setCharacterEncoding("UTF-8");
@@ -54,7 +52,7 @@ public class ClientServlet extends HttpServlet {
         String firstName = req.getParameter("firstName");
         String lastName = req.getParameter("lastName");
         String email = req.getParameter("email");
-        ClientDTO clientDTO = new ClientDTO(idUser, firstName,lastName, email);
+        ClientDTO clientDTO = new ClientDTO(idUser, firstName, lastName, email);
         Client client = dtomapper.toClient(clientDTO);
         boolean save = service.save(client);
 

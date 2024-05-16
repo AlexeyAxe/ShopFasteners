@@ -16,11 +16,11 @@ public class ClientRepositoryImpl implements ClientRepository {
     private static final String FIND_BY_ID = "SELECT * FROM client WHERE id_user = ?";
     private static final String FIND_ALL = "SELECT * FROM client";
     private static final String DELETE_BY_ID = "DELETE * FROM client WHERE id_user = ?";
-    private static final String SAVE = "INSERT INTO client(id_user,first_name,last_name,email) VALUES = (?,?,?,?)";
+    private static final String SAVE = "INSERT INTO client (id_user,first_name,last_name,email) VALUES (?,?,?,?)";
 
     public ClientRepositoryImpl(ConnectionManager connectionManager) {
         this.connectionManager = connectionManager;
-        clientMapper =new ClientMapperImpl();
+        clientMapper = new ClientMapperImpl();
     }
 
     @Override
@@ -30,7 +30,7 @@ public class ClientRepositoryImpl implements ClientRepository {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-            return clientMapper.mapToUser(resultSet);
+                return clientMapper.mapToUser(resultSet);
             }
             return null;
         } catch (SQLException | IOException e) {
@@ -56,7 +56,7 @@ public class ClientRepositoryImpl implements ClientRepository {
                 .getConnection().prepareStatement(FIND_ALL)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                 clients.add(clientMapper.mapToUser(resultSet));
+                clients.add(clientMapper.mapToUser(resultSet));
             }
             return clients;
         } catch (SQLException | IOException e) {
@@ -66,6 +66,7 @@ public class ClientRepositoryImpl implements ClientRepository {
 
     @Override
     public boolean save(Client client) {
+        boolean result;
         try (PreparedStatement preparedStatement = connectionManager
                 .getConnection().prepareStatement(SAVE)) {
             preparedStatement.setLong(1, client.getIdUser());
@@ -73,15 +74,10 @@ public class ClientRepositoryImpl implements ClientRepository {
             preparedStatement.setString(3, client.getLastName());
             preparedStatement.setString(4, client.getEmail());
             int i = preparedStatement.executeUpdate();
-            ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            if(resultSet.next()){
-                clientMapper.mapToUser(resultSet);
-            return i>0;
-            }
-        }
-        catch (SQLException | IOException e) {
+            result = i > 0;
+        } catch (SQLException | IOException e) {
             throw new RuntimeException("Not save user", e);
         }
-        return false;
+        return result;
     }
 }

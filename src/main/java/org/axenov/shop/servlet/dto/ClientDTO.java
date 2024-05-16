@@ -28,14 +28,11 @@ public class ClientDTO {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        orderList=new ArrayList<>();
+        orderList = new ArrayList<>();
     }
 
-    public List<Order> getOrderList() {return orderList;
-    }
-
-    public void setOrderList(List<Order> orderList) {
-        this.orderList = orderList;
+    public List<Order> getOrderList() {
+        return orderList;
     }
 
     public long getIdUser() {

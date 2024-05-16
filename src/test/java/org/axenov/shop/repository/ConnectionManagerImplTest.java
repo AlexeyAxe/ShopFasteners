@@ -15,8 +15,9 @@ public class ConnectionManagerImplTest implements ConnectionManager {
         this.username = username;
         this.password = password;
     }
+
     @Override
-    public Connection getConnection(){
+    public Connection getConnection() {
         try {
             return DriverManager.getConnection(url, username, password);
         } catch (Exception e) {

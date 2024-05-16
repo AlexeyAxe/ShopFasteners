@@ -17,7 +17,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
  class FastenerServeletTest {
-    private FastenerServlet fastenerServlet;
+    private FastenerServlet servlet;
     private HttpServletRequest request;
     private HttpServletResponse response;
     private FastenerService service;
@@ -25,13 +25,13 @@ import static org.mockito.Mockito.when;
 
     @BeforeEach
     public void setUp() {
-        fastenerServlet = new FastenerServlet();
+        servlet = new FastenerServlet();
         request = mock(HttpServletRequest.class);
         response = mock(HttpServletResponse.class);
         service = mock(FastenerService.class);
         dtomapper = mock(FastenerMapperDTO.class);
 
-        fastenerServlet.init(service, dtomapper);
+        servlet.init(service, dtomapper);
     }
 
     @Test
@@ -54,7 +54,7 @@ import static org.mockito.Mockito.when;
 
         when(response.getWriter()).thenReturn(writer);
 
-        fastenerServlet.doGet(request, response);
+        servlet.doGet(request, response);
 
         writer.flush();
         assertTrue(stringWriter.toString().contains("Fastener Details"));
@@ -82,7 +82,7 @@ import static org.mockito.Mockito.when;
 
         when(response.getWriter()).thenReturn(writer);
 
-        fastenerServlet.doPost(request, response);
+        servlet.doPost(request, response);
 
         writer.flush();
         assertTrue(stringWriter.toString().contains("Fastener saved"));

@@ -24,14 +24,15 @@ class FastenerMapperImplTest {
     private FastenerMapper fastenerMapper;
 
     @BeforeEach
-    public void setUp() throws SQLException{
-        fastenerMapper =new FastenerMapperImpl();
+    public void setUp() throws SQLException {
+        fastenerMapper = new FastenerMapperImpl();
         when(resultSet.getString("name_fastener")).thenReturn("Test Fastener");
         when(resultSet.getLong("id_fastener")).thenReturn(1L);
-        }
+    }
+
     @Test
-    void mapToFastenerTest() throws SQLException{
-        Fastener fastener=fastenerMapper.mapToFastener(resultSet);
+    void mapToFastenerTest() throws SQLException {
+        Fastener fastener = fastenerMapper.mapToFastener(resultSet);
         verify(resultSet).getString("name_fastener");
         verify(resultSet).getLong("id_fastener");
         assertEquals("Test Fastener", fastener.getNameFastener());

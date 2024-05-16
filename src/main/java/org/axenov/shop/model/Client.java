@@ -36,9 +36,6 @@ public class Client {
         return orderList;
     }
 
-    public void setOrderList(List<Order> orderList) {
-        this.orderList = orderList;
-    }
 
     public long getIdUser() {
         return idUser;
@@ -74,8 +71,13 @@ public class Client {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Client)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Client)) {
+            return false;
+        }
+
         Client client = (Client) o;
         return idUser == client.idUser && Objects.equals(firstName, client.firstName) &&
                 Objects.equals(lastName, client.lastName) && Objects.equals(email, client.email);
@@ -86,14 +88,4 @@ public class Client {
         return Objects.hash(idUser, firstName, lastName, email);
     }
 
-    @Override
-    public String toString() {
-        return "user{" +
-                "idUser=" + idUser +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", orderList=" + orderList +
-                '}';
-    }
 }

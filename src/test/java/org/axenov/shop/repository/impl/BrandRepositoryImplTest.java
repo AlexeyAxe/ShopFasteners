@@ -1,72 +1,97 @@
 package org.axenov.shop.repository.impl;
 
-import org.axenov.shop.db.ConnectionManagerImpl;
 import org.axenov.shop.model.Brand;
-import org.axenov.shop.repository.mapper.impl.BrandMapperImpl;
-import org.junit.jupiter.api.BeforeEach;
+import org.axenov.shop.repository.BrandRepository;
+import org.axenov.shop.repository.ConnectionManagerImplTest;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import java.sql.Statement;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@ExtendWith(MockitoExtension.class)
-class BrandRepositoryImplTest {
-    @Mock
-    private ConnectionManagerImpl connectionManager;
-    @Mock
-    private PreparedStatement preparedStatement;
-    @Mock
-    private ResultSet resultSet;
-    @Mock
-    private BrandMapperImpl brandMapper;
+@Testcontainers
+public class BrandRepositoryImplTest {
 
-    private BrandRepositoryImpl brandRepository;
+    @Container
+    public static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>(
+            "postgres:15-alpine");
 
-    @BeforeEach
-     void setUp() throws SQLException {
+    private static Connection connection;
+    private static BrandRepository brandRepository;
+
+    @BeforeAll
+    public static void setUp() throws SQLException, IOException {
+        connection = DriverManager.getConnection(postgreSQLContainer.getJdbcUrl(), postgreSQLContainer.getUsername(), postgreSQLContainer.getPassword());
+        Statement statement = connection.createStatement();
+        statement.execute("CREATE TABLE brand (id_brand SERIAL PRIMARY KEY, name_brand VARCHAR(10) NOT NULL)");
+        ConnectionManagerImplTest connectionManager = new ConnectionManagerImplTest(
+                postgreSQLContainer.getJdbcUrl(),
+                postgreSQLContainer.getUsername(),
+                postgreSQLContainer.getPassword()
+        );
         brandRepository = new BrandRepositoryImpl(connectionManager);
-        when(connectionManager.getConnection().prepareStatement(BrandRepositoryImpl.FIND_BY_ID)).thenReturn(preparedStatement);
-        when(preparedStatement.executeQuery()).thenReturn(resultSet);
-        when(brandMapper.mapToBrand(resultSet)).thenReturn(new Brand());
+    }
+
+    @AfterAll
+    static void afterAll() {
+        postgreSQLContainer.stop();
     }
 
     @Test
-     void testFindById() throws SQLException {
-        Brand brand = brandRepository.findById(1L);
+    void testFindById() {
+        Brand brand = new Brand(1L, "Apple");
+        brandRepository.save(brand);
 
-       verify(preparedStatement).setLong(1, 1L);
-
-     verify(preparedStatement).executeQuery();
-
-       verify(brandMapper).mapToBrand(resultSet);
-
-        assertEquals(new Brand(), brand);
+        Brand foundBrand = brandRepository.findById(1L);
+        assertNotNull(foundBrand);
+        assertEquals(brand, foundBrand);
     }
 
     @Test
-     void testFindByIdNotFound() throws SQLException {
-        when(resultSet.next()).thenReturn(false);
+    void testFindAll() {
+        Brand brand1 = new Brand(1L, "Apple");
+        Brand brand2 = new Brand(2L, "Samsung");
+        brandRepository.save(brand1);
+        brandRepository.save(brand2);
 
-        Brand brand = brandRepository.findById(1L);
-
-        assertEquals(Optional.empty(), brand);
+        List<Brand> brands = brandRepository.findAll();
+        assertEquals(2, brands.size());
+        assertTrue(brands.contains(brand1));
+        assertTrue(brands.contains(brand2));
     }
 
     @Test
-     void testFindByIdException() throws SQLException {
-        when(preparedStatement.executeQuery()).thenThrow(new SQLException());
+    void testSave() {
+        Brand brand = new Brand(10, "HP");
+        assertTrue(brandRepository.save(brand));
 
-        assertThrows(RuntimeException.class, () -> brandRepository.findById(1L));
+        Brand savedBrand = brandRepository.findById(brand.getIdBrand());
+        assertNotNull(savedBrand);
+        assertEquals(brand, savedBrand);
     }
 
+    @Test
+    void testDeleteById() {
+        Brand brand = new Brand(1L, "HP");
+        brandRepository.save(brand);
+
+        assertTrue(brandRepository.deleteById(1L));
+        assertNull(brandRepository.findById(1L));
+    }
+
+    @Test
+    void testDeleteById_ReturnFalse() {
+        Assertions.assertFalse(brandRepository.deleteById(11L));
+    }
 }
